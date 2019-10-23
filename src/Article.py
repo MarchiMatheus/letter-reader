@@ -1,3 +1,5 @@
+import re
+
 class Article():
     """ This class processes the file passed in the constructor and executes some operations """
 
@@ -17,6 +19,7 @@ class Article():
 
         # Initialize Article class private variables
         self.__letterDictionary = {}
+        self.__filePath = filePath
         self.__vowelArray = ['a', 'e', 'i', 'o', 'u', 'á', 'à', 'â', 'ã', 'é', 'ê', 'í', 'ó', 'õ', 'ú']
 
         with open(filePath, encoding="utf-8") as file:
@@ -45,6 +48,10 @@ class Article():
         Parameters
         ----------
         self : Article class object
+
+        Returns
+        -------
+        int : The letter dictionary
         """
 
         return self.__letterDictionary
@@ -57,6 +64,10 @@ class Article():
         Parameters
         ----------
         self : Article class object
+
+        Returns
+        -------
+        int : The total letters in the article
         """
 
         totalLetters = 0
@@ -74,6 +85,10 @@ class Article():
         Parameters
         ----------
         self : Article class object
+
+        Returns
+        -------
+        int : The total of vowels
         """
 
         totalVowels = 0
@@ -92,6 +107,10 @@ class Article():
         Parameters
         ----------
         self : Article class object
+
+        Returns
+        -------
+        int : The total of consonants
         """
 
         totalConsonants = 0
@@ -101,3 +120,51 @@ class Article():
                 totalConsonants += self.__letterDictionary[letter]
 
         return totalConsonants
+
+    def getLetterQuantity(self, letter):
+
+        """
+        Returns the quantity of the given letter
+
+        Parameters
+        ----------
+        self : Article class object
+        letter: Letter to get the quantity
+
+        Returns
+        -------
+        int : The quantity of the given letter in the article or -1 if the letter isn't in the article
+        """
+
+        lowerLetter = letter.lower()
+
+        if lowerLetter not in self.__letterDictionary.keys():
+            return -1
+
+        return self.__letterDictionary[lowerLetter]
+
+    def showInformation(self):
+
+        """
+        Prints the article information
+
+        Parameters
+        ----------
+        self : Article class object
+        """
+
+        fileNamePatern = '.*\/(.*).txt'
+
+        total = self.getTotalLetters()
+        vowels = self.getVowelQuantity()
+        consonants = self.getConsonantQuantity()
+
+        print('\n###########################################################\n')
+        print('Processed numbers for file: ' + re.match(fileNamePatern, self.__filePath).group(1) + '\n')
+
+        print('Vowels: ' + str(vowels) + ', Percentage: %.2f' %((vowels/total)*100) + '%')
+        print('Consonants: ' + str(consonants) + ', Percentage: %.2f' %((consonants/total)*100) + '%')
+        
+        print('\nTotal letters: ' + str(total))
+
+        print('\n###########################################################\n')
