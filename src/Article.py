@@ -227,3 +227,51 @@ class Article():
         print('\nTotal letters: ' + str(total))
 
         print('\n###########################################################\n')
+
+    def showVowelInformation(self, considerAccent):
+
+        """
+        Prints the vowel article information
+
+        Parameters
+        ----------
+        self : Article class object
+        """
+
+        total = self.getTotalLetters()
+        
+        letterA = self.__letterDictionary['a']
+        letterE = self.__letterDictionary['e']
+        letterI = self.__letterDictionary['i']
+        letterO = self.__letterDictionary['o']
+        letterU = self.__letterDictionary['u']
+
+        #Recalculates if must consider vowels accentuated
+        if considerAccent:
+
+            if 'á' in self.__letterDictionary.keys(): letterA += self.__letterDictionary['á']
+            if 'à' in self.__letterDictionary.keys(): letterA += self.__letterDictionary['à']
+            if 'â' in self.__letterDictionary.keys(): letterA += self.__letterDictionary['â']
+            if 'ã' in self.__letterDictionary.keys(): letterA += self.__letterDictionary['ã']
+
+            if 'é' in self.__letterDictionary.keys(): letterE += self.__letterDictionary['é']
+            if 'ê' in self.__letterDictionary.keys(): letterE += self.__letterDictionary['ê']
+
+            if 'í' in self.__letterDictionary.keys(): letterI += self.__letterDictionary['í']
+
+            if 'ó' in self.__letterDictionary.keys(): letterO += self.__letterDictionary['ó']
+            if 'õ' in self.__letterDictionary.keys(): letterO += self.__letterDictionary['õ']
+
+            if 'ú' in self.__letterDictionary.keys(): letterU += self.__letterDictionary['ú']
+
+        print('\n###########################################################\n')
+
+        print('Letter A: ' + str(letterA) + ', Percentage: %.2f' %((letterA/total)*100) + '%')
+        print('Letter E: ' + str(letterE) + ', Percentage: %.2f' %((letterE/total)*100) + '%')
+        print('Letter I: ' + str(letterI) + ', Percentage: %.2f' %((letterI/total)*100) + '%')
+        print('Letter O: ' + str(letterO) + ', Percentage: %.2f' %((letterO/total)*100) + '%')
+        print('Letter U: ' + str(letterU) + ', Percentage: %.2f' %((letterU/total)*100) + '%')
+
+        print('\nTotal letters: ' + str(total))
+
+        print('\n###########################################################\n')
