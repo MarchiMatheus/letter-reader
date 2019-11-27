@@ -1,4 +1,5 @@
 import re
+import operator
 
 class Article():
     """ This class processes the file passed in the constructor and executes some operations """
@@ -20,7 +21,11 @@ class Article():
         # Initialize Article class private variables
         self.__letterDictionary = {}
         self.__filePath = filePath
+
+        self.__simpleVowelArray = ['a', 'e', 'i', 'o', 'u']
         self.__vowelArray = ['a', 'e', 'i', 'o', 'u', 'á', 'à', 'â', 'ã', 'é', 'ê', 'í', 'ó', 'õ', 'ú']
+
+        self.__accentedLetterArray = ['á', 'à', 'â', 'ã', 'é', 'ê', 'í', 'ó', 'õ', 'ú']
 
         with open(filePath, encoding="utf-8") as file:
 
@@ -142,6 +147,60 @@ class Article():
             return -1
 
         return self.__letterDictionary[lowerLetter]
+
+    def getAccentedLetterQuantity(self):
+
+        """
+        Returns the quantity of accented letters in the article
+
+        Parameters
+        ----------
+        self : Article class object
+
+        Returns
+        -------
+        int : The total of accented letters
+        """
+
+        totalAccentedLetters = 0
+
+        for letter in self.__letterDictionary:
+            if letter in self.__accentedLetterArray:
+                totalAccentedLetters += self.__letterDictionary[letter]
+
+        return totalAccentedLetters
+
+    def getMostUsedVowel(self, considerAccent):
+
+        """
+        Returns the most used vowel in the article
+
+        Parameters
+        ----------
+        self : Article class object
+        considerAccent : Boolean to consider accented vowels or not
+
+        Returns
+        -------
+        int : The most used vowel in the article
+        """
+
+        vowel = ''
+        mostUsedVowel = -1
+
+        if considerAccent:
+            for v in self.__vowelArray:
+                if v in self.__letterDictionary.keys() and self.__letterDictionary[v] > mostUsedVowel:
+                    vowel = v
+                    mostUsedVowel = self.__letterDictionary[v]
+
+        else :
+            for v in self.__simpleVowelArray:
+                if v in self.__letterDictionary.keys() and self.__letterDictionary[v] > mostUsedVowel:
+                    vowel = v
+                    mostUsedVowel = self.__letterDictionary[v]
+
+        return vowel, mostUsedVowel
 
     def showInformation(self):
 
